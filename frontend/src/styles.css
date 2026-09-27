@@ -1,0 +1,386 @@
+/* ---------------------------------------------------------
+   Postbox design tokens
+   Concept: a mail-room ledger. Ink-navy chrome, warm paper
+   panels, a single rust "stamp" accent, mono type standing
+   in for tracking numbers / addresses.
+--------------------------------------------------------- */
+:root {
+  --ink: #1b2430;
+  --ink-soft: #2c3646;
+  --paper: #f6f1e7;
+  --paper-line: #e4dbc8;
+  --rust: #c1553b;
+  --rust-dark: #9c4530;
+  --sage: #5c8a66;
+  --sage-bg: #e7f0e3;
+  --slate: #6b7280;
+  --danger: #b23b3b;
+  --danger-bg: #f7e6e4;
+
+  --font-display: "Fraunces", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ---------- Login (envelope) screen ---------- */
+.envelope-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(160deg, var(--ink) 0%, var(--ink-soft) 100%);
+  padding: 24px;
+}
+
+.envelope-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--paper);
+  border-radius: 3px;
+  padding: 40px 36px 32px;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+.envelope-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--rust) 0 10px,
+    var(--paper) 10px 20px
+  );
+  border-radius: 3px 3px 0 0;
+}
+
+.stamp {
+  width: 46px;
+  height: 58px;
+  border: 2px dashed var(--rust);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rust);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  margin-bottom: 22px;
+}
+
+.envelope-card h1 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+
+.envelope-card .subtext {
+  font-size: 13px;
+  color: var(--slate);
+  margin: 0 0 26px;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  color: var(--slate);
+  margin-bottom: 6px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--paper-line);
+  border-radius: 2px;
+  background: #fff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 90px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.field input:focus,
+.field textarea:focus,
+button:focus-visible {
+  outline: 2px solid var(--rust);
+  outline-offset: 1px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background: var(--rust);
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: background 0.15s ease;
+}
+
+.btn-primary:hover { background: var(--rust-dark); }
+.btn-primary:disabled { background: #cbb9ae; cursor: not-allowed; }
+
+.form-error {
+  background: var(--danger-bg);
+  color: var(--danger-dark, #7a2b2b);
+  border: 1px solid #e3b9b3;
+  padding: 10px 12px;
+  border-radius: 2px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+/* ---------- App shell (ledger layout) ---------- */
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  background: var(--paper);
+}
+
+.sidebar {
+  background: var(--ink);
+  color: #dfe4ec;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .brand {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.sidebar .brand-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--rust);
+  letter-spacing: 0.5px;
+  margin-bottom: 36px;
+}
+
+.nav-link {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 2px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #b9c1cf;
+  margin-bottom: 4px;
+  border-left: 2px solid transparent;
+}
+
+.nav-link:hover { color: #fff; }
+
+.nav-link.active {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border-left: 2px solid var(--rust);
+}
+
+.sidebar .signed-in {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 12px;
+  color: var(--slate);
+}
+
+.sidebar .signed-in strong { color: #dfe4ec; }
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: var(--rust);
+  font-size: 12px;
+  padding: 8px 0 0;
+}
+
+.main-panel {
+  padding: 40px 48px;
+  max-width: 860px;
+}
+
+.main-panel h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  margin: 0 0 6px;
+}
+
+.main-panel .lede {
+  color: var(--slate);
+  font-size: 14px;
+  margin: 0 0 28px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--paper-line);
+  border-radius: 3px;
+  padding: 28px;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.recipients-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.file-drop {
+  border: 1px dashed var(--paper-line);
+  border-radius: 2px;
+  padding: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--slate);
+  background: var(--paper);
+}
+
+.file-drop input { display: none; }
+
+.file-drop label {
+  display: inline-block;
+  padding: 8px 14px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 2px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.file-drop .file-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink);
+  word-break: break-all;
+}
+
+.count-chip {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--sage-bg);
+  color: #33553d;
+  padding: 3px 8px;
+  border-radius: 10px;
+  margin-top: 6px;
+}
+
+.banner {
+  padding: 12px 14px;
+  border-radius: 2px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+
+.banner.success { background: var(--sage-bg); color: #2c4a33; border-color: #bcd9c1; }
+.banner.error { background: var(--danger-bg); color: #7a2b2b; border-color: #e3b9b3; }
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--slate);
+  border-bottom: 1px solid var(--paper-line);
+  padding: 10px 8px;
+}
+
+tbody td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--paper-line);
+  vertical-align: top;
+}
+
+tbody tr:hover { background: var(--paper); }
+
+.status-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.status-pill.success { background: var(--sage-bg); color: #2c4a33; }
+.status-pill.partial { background: #fbeed3; color: #7a5a1e; }
+.status-pill.failed { background: var(--danger-bg); color: #7a2b2b; }
+
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--slate);
+  font-size: 14px;
+}
+
+.mono { font-family: var(--font-mono); }
+
+@media (max-width: 720px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .sidebar { flex-direction: row; align-items: center; padding: 16px 20px; }
+  .sidebar .brand-sub { display: none; }
+  .sidebar nav { display: flex; gap: 4px; margin-left: auto; }
+  .signed-in { display: none; }
+  .main-panel { padding: 24px 20px; }
+  .two-col, .recipients-row { grid-template-columns: 1fr; }
+}
