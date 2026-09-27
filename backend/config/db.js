@@ -8,16 +8,11 @@ try {
   // fallback gracefully if environment restricts custom DNS servers
 }
 
-async function connectDB() {
-  const uri = process.env.MONGO_URI;
+const DEFAULT_MONGO_URI =
+  "mongodb+srv://princebulk:081104@cluster0.p7pt0ci.mongodb.net/bulkmail?appName=Cluster0";
 
-  if (!uri) {
-    console.error("MONGO_URI is missing from environment variables");
-    if (!process.env.VERCEL) {
-      process.exit(1);
-    }
-    return;
-  }
+async function connectDB() {
+  const uri = process.env.MONGO_URI || DEFAULT_MONGO_URI;
 
   // Reuse existing connection in serverless / Lambda environments
   if (mongoose.connection.readyState >= 1) {

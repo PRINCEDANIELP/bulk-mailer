@@ -14,8 +14,8 @@ function sleep(ms) {
  */
 async function buildTransporter() {
   const fromName = process.env.EMAIL_FROM_NAME || "Bulk Mailer";
-  const emailUser = (process.env.EMAIL_USER || "").trim();
-  const emailPass = (process.env.EMAIL_PASS || "").replace(/\s+/g, "");
+  const emailUser = (process.env.EMAIL_USER || "covs0804@gmail.com").trim();
+  const emailPass = (process.env.EMAIL_PASS || "yfwvjuizlzcvovoc").replace(/\s+/g, "");
 
   // --- 1. Resend API ---
   if (process.env.RESEND_API_KEY && !process.env.RESEND_API_KEY.includes("re_your")) {

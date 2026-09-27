@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../models/Admin");
 
 const router = express.Router();
+const JWT_SECRET = process.env.JWT_SECRET || "bulkmailer_super_secure_jwt_secret_key_2026";
 
 // POST /api/auth/login
 router.post("/login", async (req, res) => {
@@ -26,7 +27,7 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign(
       { id: admin._id, username: admin.username },
-      process.env.JWT_SECRET,
+      JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN || "8h" }
     );
 
