@@ -2,6 +2,12 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "frontend/build",
+  "build": {
+    "env": {
+      "CI": "false",
+      "GENERATE_SOURCEMAP": "false"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
