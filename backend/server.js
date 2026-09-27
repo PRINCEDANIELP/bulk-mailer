@@ -14,7 +14,11 @@ connectDB().catch((err) => console.error("Initial DB connect error:", err.messag
 
 // Ensure DB is connected for serverless invocations
 app.use(async (req, res, next) => {
-  if (req.path.startsWith("/api")) {
+  if (
+    req.path.startsWith("/api") ||
+    req.path.startsWith("/auth") ||
+    req.path.startsWith("/mail")
+  ) {
     try {
       await connectDB();
     } catch (err) {
@@ -49,9 +53,13 @@ app.use(
 app.use(express.json({ limit: "5mb" }));
 
 app.get("/api/health", (req, res) => res.json({ ok: true }));
+app.get("/health", (req, res) => res.json({ ok: true }));
 
 app.use("/api/auth", authRoutes);
+app.use("/auth", authRoutes);
+
 app.use("/api/mail", mailRoutes);
+app.use("/mail", mailRoutes);
 
 // In production or full-stack mode, serve React build assets
 const clientBuildPath = path.join(__dirname, "../frontend/build");
