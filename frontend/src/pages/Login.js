@@ -4,8 +4,8 @@ import { api } from "../api";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("admin123");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -87,7 +87,7 @@ export default function Login() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="username"
-              placeholder="admin"
+              placeholder="Enter username"
               required
             />
           </div>
@@ -99,7 +99,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
-              placeholder="admin123"
+              placeholder="Enter password"
               required
             />
           </div>
